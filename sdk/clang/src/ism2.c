@@ -1,9 +1,10 @@
 #include "IClangAPI.h"
 #include "openssl/sm2.h"
-//#include "openssl/ec_lcl.h"
+#include "openssl/ec_lcl.h"
 
 #include <openssl/evp.h>
 #include <openssl/ossl_typ.h>
+#include <openssl/sm2_lcl.h>
 
 void PrintData(uint8_t* data, uint32_t len)
 {
@@ -17,6 +18,62 @@ void PrintData(uint8_t* data, uint32_t len)
 	}
 	puts("");
 }
+
+/******************************************************************************/
+SDK_API int SM2_Genkey2buf(char *pubkey, char *prikey) {
+	EC_KEY *ec_key = NULL;
+
+	if (!(ec_key = EC_KEY_new_by_curve_name(NID_sm2p256v1))) {
+		goto end;
+	}
+
+	if (!EC_KEY_generate_key(ec_key)) {
+		goto end;
+	}
+
+	end:
+	return 0;
+}
+
+
+/******************************************************************************/
+SDK_API int SM2_Genkey2hex(char *pubkeyhex, char *privkeyhex) {
+	EC_KEY *ec_key = NULL;
+	const EC_POINT *ec_point = NULL;
+	char *pubkeyhex_tmp = NULL;
+	const BIGNUM *priv_key = NULL;
+	char *privkeyhex_tmp = NULL;
+
+	if (!(ec_key = EC_KEY_new_by_curve_name(NID_sm2p256v1))) {
+		goto end;
+	}
+
+	if (!EC_KEY_generate_key(ec_key)) {
+		goto end;
+	}
+
+	if (!(ec_point = EC_KEY_get0_public_key(ec_key))) {
+		goto end;
+	}
+
+	// POINT_CONVERSION_COMPRESSED
+	// POINT_CONVERSION_UNCOMPRESSED
+	// POINT_CONVERSION_HYBRID
+	pubkeyhex_tmp = EC_POINT_point2hex(EC_KEY_get0_group(ec_key), ec_point, POINT_CONVERSION_UNCOMPRESSED, BN_CTX_new());
+	priv_key = EC_KEY_get0_private_key(ec_key);
+	privkeyhex_tmp = BN_bn2hex(priv_key);
+
+	memcpy(pubkeyhex, pubkeyhex_tmp, strlen(pubkeyhex_tmp));
+	memcpy(privkeyhex, privkeyhex_tmp, strlen(privkeyhex_tmp));
+
+end:
+	EC_KEY_free(ec_key);
+	OPENSSL_free(pubkeyhex_tmp);
+	OPENSSL_free(privkeyhex_tmp);
+
+	return 0;
+}
+
 
 SDK_API int SM2_Encrypt(cuchar *pubkey, int pubkey_hexflag, cuchar *psBytes, size_t psBytes_len, uchar **eoBytes, size_t *eo_len) {
 
@@ -56,6 +113,13 @@ SDK_API int SM2_Encrypt(cuchar *pubkey, int pubkey_hexflag, cuchar *psBytes, siz
 		puts("Encrypt success!");
 		puts("CipherText:"); PrintData(outBuf, outLen); puts("");
 	}
+
+
+
+	SM2CiphertextValue *cv = NULL;
+	char *tp = outBuf;
+	long inlen = outLen;
+	cv = d2i_SM2CiphertextValue(NULL, &tp, (long)inlen);
 
 	// Get output length
 	tmpLen = 0;

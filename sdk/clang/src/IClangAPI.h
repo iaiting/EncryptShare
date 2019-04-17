@@ -18,6 +18,20 @@ typedef signed char     s4;
 extern "C" {
 #endif
 
+// 采用非压缩的方式产生SM2的公钥和私钥对，即产生的公钥前补充0x04  04|x|y
+/*******************************************************************************
+    pubkey  : 返回的公钥字节序
+    prikey  : 返回的私钥字节序
+*******************************************************************************/
+SDK_API int SM2_Genkey2buf(char *pubkey, char *prikey);
+
+// 采用非压缩的方式产生SM2的公钥和私钥的hex字符串，即产生的公钥前补充0x04  04|x|y
+/*******************************************************************************
+    pubkeyhex  : 返回的公钥hex字符串
+    privkeyhex : 返回的私钥hex字符串
+*******************************************************************************/
+SDK_API int SM2_Genkey2hex(char *pubkeyhex, char *privkeyhex);
+
 // pubkey_hexflag = 0: 公钥为bytes
 // pubkey_hexflag = 1: 公钥为16进制字符串
 SDK_API int SM2_Encrypt(cuchar *pubkey, int pubkey_hexflag, cuchar *psBytes, size_t psBytes_len, uchar **eoBytes, size_t *eo_len);

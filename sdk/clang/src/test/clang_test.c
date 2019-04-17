@@ -1,7 +1,17 @@
 #include <stdio.h>
 
-int main(int argc, char *argv[]) {
+/******************************************************************************/
+static void SM2_Genkey2hex_TEST() {
+	char pubkeyhex[1024] = {0};
+	char privkeyhex[1024] = {0};
+	SM2_Genkey2hex(pubkeyhex, privkeyhex);
+}
 
+int main(int argc, char *argv[]) {
+	SM2_Genkey2hex_TEST();
+
+
+	return -1;
 
 	SM2_Encrypt(NULL, 1, NULL, 10, NULL, NULL);
 
