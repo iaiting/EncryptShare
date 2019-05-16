@@ -47,6 +47,9 @@ SDK_API int SM4CTR_FileEncrypt(cuchar *in_file, cuchar *out_file, cuchar key[16]
 SDK_API int SM4CTR_FileDecrypt(cuchar *in_file, cuchar *out_file, cuchar key[16], uchar iv[16]);
 
 
+// MY TEST
+SDK_API void LOG_TEST();
+
 ////////////////////////////////////////////////////////////////////////////////////
 // usb key 相关接口
 

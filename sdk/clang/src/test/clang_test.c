@@ -101,13 +101,18 @@ void SM4CTR_FileEncrypt_TEST() {
 	SM4CTR_FileDecrypt(in_efile, out_mfile, key, iv);
 }
 
+void LOG_TEST_TEST() {
+	LOG_TEST();
+}
 
 
 /******************************************************************************/
 int main(int argc, char *argv[]) {
 	printf("Enter main Function: \012");
+	LOG_TEST_TEST();
+	return;
 
-	SM4_CTREncrypt_TEST();
+	// SM4_CTREncrypt_TEST();
 	return;
 
 	time_t t;

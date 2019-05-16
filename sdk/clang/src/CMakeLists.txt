@@ -5,7 +5,7 @@ include_directories (${PROJECT_SOURCE_DIR}/)
 
 
 # 把当前文件夹下的源码列表（文件后缀匹配的那些文件）存到变量 SRCS 中
-file( GLOB SRCS *.c *.cpp *.cc *.h *.hpp )
+file( GLOB SRCS *.c *.cpp utils/*.c utils/*.cpp)
 
 # 设置生成的库文件目录，这里我们设置成和库目录相同
 set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
