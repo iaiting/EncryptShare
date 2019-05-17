@@ -3,9 +3,12 @@ project (clang)
 # 添加include目录，本例头文件在./当前目录下，所以直接取${PROJECT_SOURCE_DIR}/
 include_directories (${PROJECT_SOURCE_DIR}/)
 
+# 头文件存到变量 HEADERS 中
+file (GLOB HEADERS "*.h" "utils/*.h")
 
-# 把当前文件夹下的源码列表（文件后缀匹配的那些文件）存到变量 SRCS 中
-file( GLOB SRCS *.c *.cpp utils/*.c utils/*.cpp)
+# 源文件
+aux_source_directory (. SRCS)
+aux_source_directory (utils SRCS)
 
 # 设置生成的库文件目录，这里我们设置成和库目录相同
 set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -14,7 +17,7 @@ set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 # 生成链接库
-add_library (${PROJECT_NAME} SHARED ${SRCS})
+add_library (${PROJECT_NAME} SHARED ${SRCS} ${HEADERS})
 
 
 # set_target_properties (${PROJECT_NAME} PROPERTIES LINK_FLAGS "${LINK_FLAGS}" ARCHIVE_OUTPUT_DIRECTORY "${OUT_PATH}")
