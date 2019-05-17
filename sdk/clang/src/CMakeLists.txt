@@ -19,7 +19,6 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 # 生成链接库
 add_library (${PROJECT_NAME} SHARED ${SRCS} ${HEADERS})
 
-
 # set_target_properties (${PROJECT_NAME} PROPERTIES LINK_FLAGS "${LINK_FLAGS}" ARCHIVE_OUTPUT_DIRECTORY "${OUT_PATH}")
 target_link_libraries (${PROJECT_NAME} libcrypto.lib)
 
