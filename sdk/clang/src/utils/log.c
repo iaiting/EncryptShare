@@ -102,15 +102,14 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
   /* Log to stderr */
   if (!L.quiet) {
     va_list args;
-    char buf[33];
-    buf[strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", lt)] = '\0';
-
+    char buf[16];
+    buf[strftime(buf, sizeof(buf), "%H:%M:%S", lt)] = '\0';
 #ifdef LOG_USE_COLOR
     fprintf(
       stderr, "%s %s%-5s\x1b[0m \x1b[90m%s:%d:\x1b[0m ",
       buf, level_colors[level], level_names[level], file, line);
 #else
-    fprintf(stderr, "[%s] [%-5s] %s:%d: ", buf, level_names[level], file, line);
+    fprintf(stderr, "%s %-5s %s:%d: ", buf, level_names[level], file, line);
 #endif
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
@@ -119,6 +118,16 @@ void log_log(int level, const char *file, int line, const char *fmt, ...) {
     fflush(stderr);
   }
 
+
+  if (!L.fp) {
+	  L.fp = fopen("c:\\test.log", "a+");
+	  if (L.fp == NULL) {
+//		  perror(errno);
+		  perror("Open Log File Fail!");
+		  return -1;
+	  }
+
+  }
   /* Log to file */
   if (L.fp) {
     va_list args;
