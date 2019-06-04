@@ -1,7 +1,7 @@
 #ifndef _ICCRYPTO_H_
 #define _ICCRYPTO_H_
 
-#include <crtdefs.h>
+// #include <crtdefs.h>
 typedef unsigned char           uchar;
 typedef const unsigned char     cuchar;
 
