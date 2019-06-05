@@ -1,3 +1,9 @@
+# 定义公用函数
+function(print_info)
+    message ("\n==== Start configuring module [${PROJECT_NAME}] ....")
+    message (STATUS "Module Directory    : ${PROJECT_SOURCE_DIR}")
+endfunction()
+
 # step 1: 设置cmake最低版本要求
 cmake_minimum_required (VERSION 3.8.0)
 

@@ -7,6 +7,9 @@ typedef const unsigned char     cuchar;
 
 #define SDK_API __declspec(dllexport)
 
+
+// 采用非压缩的方式产生SM2的公钥和私钥对，即产生的公钥前补充0x04  04|x|y
+
 // 采用非压缩的方式产生SM2的公钥和私钥对，即产生的公钥前补充0x04  04|x|y
 SDK_API int SM2_Genkey(char *pubkey, char *prikey);
 

@@ -1,6 +1,10 @@
 project (ccryptotest)
+print_info()
 
-aux_source_directory (. SRCS)
+# aux_source_directory (. SRCS2)
+file ( GLOB SRCS *.c *.cpp *.h)
+
+message(STATUS ${SRCS})
 
 add_executable (${PROJECT_NAME} ${SRCS})
 
