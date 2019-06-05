@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include "iccrypto.h"
+# include "openssl/sms4.h"
 
 // SM4 相关接口
 SDK_API int SM4Ecb_Encrypt(char *in, int inlen, char *key, char *out) {
     printf("*************** Enter: %s\n", "SM4Ecb_Encrypt");
+    sms4_key_t sms4_key;
+    sms4_set_encrypt_key(&sms4_key, key);
     return 1;
 }
 

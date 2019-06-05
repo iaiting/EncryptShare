@@ -30,7 +30,7 @@ void f(unsigned char v)
 
 }
 
-static int SM4Ecb_TEST() {
+static void SM4Ecb_TEST() {
 	char *key = "1234567890abcdef";
 	char  *in_1 = "1234567890abcdef";
 	char  out_1[256] = {0};
@@ -50,4 +50,5 @@ int main(int argc, char *argv[]) {
 
 
     //SM4CTR_Encrypt(NULL, NULL, 0, NULL, NULL, NULL, NULL);
+	return 0;
 }
