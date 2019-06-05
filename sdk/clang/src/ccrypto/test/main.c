@@ -30,31 +30,24 @@ void f(unsigned char v)
 
 }
 
+static int SM4Ecb_TEST() {
+	char *key = "1234567890abcdef";
+	char  *in_1 = "1234567890abcdef";
+	char  out_1[256] = {0};
 
+	SM4Ecb_Encrypt(in_1, strlen(in_1), key, out_1);
+
+	char  out_2[256] = {0};
+
+	SM4Ecb_Decrypt(out_1, 16, key, out_2);
+
+}
 int main(int argc, char *argv[]) {
 
-	
-	f(0x80);
-
-	f(0x7F);
-	
-	unsigned long a = 0x00000000;
-	char b = 0xFF;
-	a |= b; // a = 0x8000007F
-	a = 0x00000000;
-	BYTE c = 0xFF;
-	a |= c; // a = 0x000000FF
-
+	SM4Ecb_TEST();
 
     printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("88888888888888888\n");
-    printf("888888888888888886666\n");
+
 
     //SM4CTR_Encrypt(NULL, NULL, 0, NULL, NULL, NULL, NULL);
 }
