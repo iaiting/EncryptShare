@@ -1,6 +1,8 @@
 ﻿#ifndef _ICCRYPTO_H_
 #define _ICCRYPTO_H_
 
+typedef unsigned char uint8_t;
+
 #define SDK_API __declspec(dllexport)
 
 // SM2 相关接口
@@ -14,13 +16,14 @@ SDK_API int SM2_Decrypt(char *prikey, char *in);
 SDK_API int SM3_Encrypt(char *pubkey, char *in);
 
 // SM4 相关接口
-SDK_API int SM4Ecb_Encrypt(char *in, int inlen, char *key, char *out);
+SDK_API int SM4ECB_Encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key, unsigned char *iv, unsigned char *ciphertext);
 
-SDK_API int SM4Ecb_Decrypt(char *in, int inlen, char *key, char *out);
+SDK_API int SM4ECB_Decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key, unsigned char *iv, unsigned char *plaintext);
 
-SDK_API int SM4_Encrypt(char *in, int inlen, char key[16], char *out);
+SDK_API int SM4CTR_Encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key, long unsigned int counter, unsigned char *ciphertext);
 
-SDK_API int SM4_Decrypt(char *in, int inlen, char key[16], char *out);
+SDK_API int SM4CTR_Decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key, long unsigned int counter, unsigned char *plaintext);
+
 
 // pkcs7 相关接口
 SDK_API int Pkcs7_Encrypt(char *certs, char *in, int inlen, char key[16], char *out);
